@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import TodoItem from "./TodoItem";
+import { useTodoState } from "../TodoContext";
 
 const TodoListBlock = styled.div`
     flex: 1;
@@ -9,12 +10,16 @@ const TodoListBlock = styled.div`
 `;
 
 export default function TodoList() {
+    const todos = useTodoState();
+    
     return (
         <TodoListBlock>
-            <TodoItem text="타입스크립트 투두 프로젝트 생성하기" done={true} />
-            <TodoItem text="git repository 새로 생성하기" done={true} />
-            <TodoItem text="로컬 저장소랑 연결하기" done={false} />
-            <TodoItem text="기능 구현하기" done={false} />
+            {todos.map(todo => (
+                <TodoItem
+                    key={todo.id}
+                    {...todo}
+                />
+            ))}
         </TodoListBlock>
     );
 }

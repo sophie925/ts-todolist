@@ -6,24 +6,22 @@ interface Todo {
     done: boolean;
 }
 
-interface StateProps extends Array<Todo> {}
+interface State extends Array<Todo> {}
 
-interface ActionProps {
-    type: string;
-    todo: Todo;
-    id?: number;
-}
+type Action =
+  { type: 'CREATE'; todo: Todo }
+| { type: 'TOGGLE'; id: number }
+| { type: 'REMOVE'; id: number };
 
 type ContextProps = {
     children: React.ReactNode;
 }
 
-const TodoStateContext = createContext<StateProps | null>(null);
-const TodoDispatchContext = createContext<React.Dispatch<ActionProps> | null>(null);
+const TodoStateContext = createContext<State | null>(null);
+const TodoDispatchContext = createContext<React.Dispatch<Action> | null>(null);
 const TodoNextIdContext = createContext<React.MutableRefObject<number> | null>(null);
 
-
-const initialTodos: StateProps = [
+const initialTodos: State = [
     {
         id: 1,
         text: '프로젝트 생성하기',
@@ -47,7 +45,7 @@ const initialTodos: StateProps = [
 ];
 
 
-function todoReducer(state : StateProps, action : ActionProps) {
+function todoReducer(state : State, action : Action) {
     switch(action.type) {
         case 'CREATE':
             return state.concat(action.todo);
@@ -58,7 +56,7 @@ function todoReducer(state : StateProps, action : ActionProps) {
         case 'REMOVE':
             return state.filter(todo => todo.id !== action.id);
         default:
-            throw new Error(`Unhandled action type: ${action.type}`);
+            throw new Error('Unhandled action');
     }
 }
 
@@ -76,7 +74,7 @@ export function TodoProvider({ children } : ContextProps) {
         </TodoStateContext.Provider>
     );
 }
-    
+
 export function useTodoState() {
     const context = useContext(TodoStateContext);
     if (!context) {
