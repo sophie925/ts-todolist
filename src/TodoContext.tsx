@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useReducer, useRef } from "react";
 
 interface Todo {
     id: number;
@@ -20,6 +20,8 @@ type ContextProps = {
 
 const TodoStateContext = createContext<StateProps | null>(null);
 const TodoDispatchContext = createContext<React.Dispatch<ActionProps> | null>(null);
+const TodoNextIdContext = createContext<React.MutableRefObject<number> | null>(null);
+
 
 const initialTodos: StateProps = [
     {
@@ -62,10 +64,14 @@ function todoReducer(state : StateProps, action : ActionProps) {
 
 export function TodoProvider({ children } : ContextProps) {
     const [state, dispatch] = useReducer(todoReducer, initialTodos);
+    const nextId = useRef(5);
+
     return (
         <TodoStateContext.Provider value={state}>
             <TodoDispatchContext.Provider value={dispatch}>
-                {children}
+                <TodoNextIdContext.Provider value={nextId}>
+                    {children}
+                </TodoNextIdContext.Provider>
             </TodoDispatchContext.Provider>
         </TodoStateContext.Provider>
     );
@@ -86,3 +92,11 @@ export function useTodoDispatch() {
     }
     return context;
 }
+
+export function useTodoNextId() {
+    const context = useContext(TodoNextIdContext);
+    if (!context) {
+        throw new Error('Cannnot find TodoProvider');
+    }
+    return context;
+  }
