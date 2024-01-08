@@ -9,7 +9,7 @@ interface Todo {
 interface State extends Array<Todo> {}
 
 type Action =
-  { type: 'CREATE'; todo: Todo }
+| { type: 'CREATE'; todo: Todo }
 | { type: 'TOGGLE'; id: number }
 | { type: 'REMOVE'; id: number };
 
@@ -43,7 +43,6 @@ const initialTodos: State = [
         done: false
     }
 ];
-
 
 function todoReducer(state : State, action : Action) {
     switch(action.type) {

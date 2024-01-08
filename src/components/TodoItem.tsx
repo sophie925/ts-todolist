@@ -1,6 +1,7 @@
 import { MdDone, MdDelete } from "react-icons/md";
 import styled, { css } from "styled-components";
 import { useTodoDispatch } from "../TodoContext";
+import React from "react";
 
 type StyleProps = {
     done?: boolean;
@@ -67,7 +68,7 @@ const Text = styled.div<StyleProps>`
       `}
 `;
 
-export default function TodoItem({ id, text, done } : TodoItemProps) {
+function TodoItem({ id, text, done } : TodoItemProps) {
     const dispatch = useTodoDispatch();
     const onToggle = () => dispatch({ type: 'TOGGLE', id });
     const onRemove = () => dispatch({ type: 'REMOVE', id });
@@ -83,3 +84,5 @@ export default function TodoItem({ id, text, done } : TodoItemProps) {
         </TodoItemBlock>
     );
 }
+
+export default React.memo(TodoItem);

@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { MdAdd } from "react-icons/md";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useTodoDispatch, useTodoNextId } from "../TodoContext";
 
 type OpenStyleProps = {
@@ -80,7 +80,7 @@ const Input = styled.input`
     box-sizing: border-box;
 `;
 
-export default function TodoCreate() {
+function TodoCreate() {
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState('');
 
@@ -124,3 +124,5 @@ export default function TodoCreate() {
         </>
     );
 }
+
+export default React.memo(TodoCreate);
