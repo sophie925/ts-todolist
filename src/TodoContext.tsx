@@ -24,22 +24,7 @@ const TodoNextIdContext = createContext<React.MutableRefObject<number> | null>(n
 const initialTodos: State = [
     {
         id: 1,
-        text: '프로젝트 생성하기',
-        done: true
-    },
-    {
-        id: 2,
-        text: '컴포넌트 스타일링하기',
-        done: true
-    },
-    {
-        id: 3,
-        text: 'Context 만들기',
-        done: false
-    },
-    {
-        id: 4,
-        text: '기능 구현하기',
+        text: 'netlify 배포하기',
         done: false
     }
 ];

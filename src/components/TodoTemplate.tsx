@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 type TemplateProps = {
     children: React.ReactNode;
 }
