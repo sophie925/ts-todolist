@@ -20,7 +20,6 @@ const CircleButton = styled.button<OpenStyleProps>`
     cursor: pointer;
     width: 80px;
     height: 80px;
-    display: block;
     align-items: center;
     justify-content: center;
     font-size: 60px;
@@ -60,11 +59,7 @@ const InsertFormPositioner = styled.div`
 
 const InsertForm = styled.form`
     background: #f8f9fa;
-    padding-left: 32px;
-    padding-top: 32px;
-    padding-right: 32px;
-    padding-bottom: 72px;
-
+    padding: 32px 32px 72px;
     border-bottom-left-radius: 16px;
     border-bottom-right-radius: 16px;
     border-top: 1px solid #e9ecef;
